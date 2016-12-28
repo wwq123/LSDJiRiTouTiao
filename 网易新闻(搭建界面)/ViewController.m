@@ -34,6 +34,12 @@
     LSDWangYiVC *wyVC = [[LSDWangYiVC alloc] init];
     wyVC.view.frame = CGRectMake(0, 64, self.view.bounds.size.width, self.view.bounds.size.height - 64);
     NSArray *titles = @[@"推荐",@"头条",@"热点",@"军事",@"娱乐",@"明星",@"电影",@"体育",@"段子"];
+    wyVC.childVCs = [[self channelsWithTitles:titles] copy];
+    [self.view addSubview:wyVC.view];
+    [self addChildViewController:wyVC];
+}
+
+- (NSMutableArray *)channelsWithTitles:(NSArray <NSString *> *)titles{
     NSMutableArray *channels = [NSMutableArray array];
     for (int i=0;i<titles.count;i++) {
         NSString *title = titles[i];
@@ -44,11 +50,8 @@
         model.isTop = YES;
         [channels addObject:model];
     }
-    wyVC.childVCs = [channels copy];
-    [self.view addSubview:wyVC.view];
-    [self addChildViewController:wyVC];
+    return channels;
 }
-
 
 
 @end
